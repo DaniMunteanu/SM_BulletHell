@@ -7,6 +7,8 @@ public class PatternGenerator : MonoBehaviour
     public int numberOfBullets;
     public float angleStep;
     public float bulletSpeed;
+    public float firingSpeed;
+    public bool shooting;
     public GameObject BulletPrefab;
 
     [Header("Private Bullets Settings")]
@@ -26,14 +28,27 @@ public class PatternGenerator : MonoBehaviour
         
     }
 
+    public void Fire()
+    {
+        shooting = !shooting;
+        if (shooting)
+        {
+            InvokeRepeating("SpawnBullets", 0f, firingSpeed);
+        }
+        else
+        {
+            CancelInvoke("SpawnBullets");
+        }
+    }
+    
     public void SpawnBullets()
     {
         startPoint = transform.position;
-                                            
+        float angleSpacing = 360f / numberOfBullets;                                
         for (int i = 0; i < numberOfBullets; i++)
         {
-            float bulletDirXPosition = startPoint.x + Mathf.Sin(((angle + i * 180f) * Mathf.PI) / 180f) * radius;
-            float bulletDirYPosition = startPoint.y + Mathf.Cos(((angle + i * 180f) * Mathf.PI) / 180f) * radius;
+            float bulletDirXPosition = startPoint.x + Mathf.Sin(((angle + i * angleSpacing) * Mathf.PI) / 180f) * radius;
+            float bulletDirYPosition = startPoint.y + Mathf.Cos(((angle + i * angleSpacing) * Mathf.PI) / 180f) * radius;
 
             Vector3 newPositionVector = new Vector3(bulletDirXPosition, 0, bulletDirYPosition);
             Vector3 bulletDirection= (newPositionVector - startPoint).normalized;
@@ -48,10 +63,20 @@ public class PatternGenerator : MonoBehaviour
             newBullet.SetMoveSpeed(bulletSpeed);
             newBullet.SetMoveDirection(bulletDirection);
         
-            angle += angleStep;
+            // angle += 360f / numberOfBullets;
 
             if (angle >= 360f)
-                angle = 0f;
+                angle -= 360f;
+        }
+
+        angle += angleStep;
+    }
+
+    public void OnFiringSpeedValueChanged() {
+        if (shooting)
+        {
+            CancelInvoke("SpawnBullets");
+            InvokeRepeating("SpawnBullets", 0.05f, firingSpeed);
         }
     }
 }

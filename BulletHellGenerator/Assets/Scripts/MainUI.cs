@@ -11,6 +11,8 @@ public class MainUI : MonoBehaviour
     [SerializeField] private TMP_Text nrBulletsText;
     [SerializeField] private Slider angleStepSlider;
     [SerializeField] private TMP_Text angleStepText;
+    [SerializeField] private Slider firingSpeedSlider;
+    [SerializeField] private TMP_Text firingSpeedText;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -18,6 +20,7 @@ public class MainUI : MonoBehaviour
         spawnBulletsButton.onClick.AddListener(OnSpawnBulletsButtonPressed);
         nrBulletsSlider.onValueChanged.AddListener(delegate {OnNrSliderValueChanged();});
         angleStepSlider.onValueChanged.AddListener(delegate {OnAngleStepValueChanged();});
+        firingSpeedSlider.onValueChanged.AddListener(delegate {OnFiringSpeedValueChanged();});
     }
 
     // Update is called once per frame
@@ -28,7 +31,7 @@ public class MainUI : MonoBehaviour
 
     private void OnSpawnBulletsButtonPressed()
     {
-        patternGenerator.SpawnBullets();
+        patternGenerator.Fire();
     }
 
     private void OnNrSliderValueChanged()
@@ -43,4 +46,10 @@ public class MainUI : MonoBehaviour
         angleStepText.text = "Angle step (degrees): " + angleStepSlider.value;
     }
 
+    private void OnFiringSpeedValueChanged()
+    {
+        patternGenerator.firingSpeed = firingSpeedSlider.value;
+        firingSpeedText.text = "Firing speed (seconds): " + firingSpeedSlider.value;
+        patternGenerator.OnFiringSpeedValueChanged();
+    }
 }
