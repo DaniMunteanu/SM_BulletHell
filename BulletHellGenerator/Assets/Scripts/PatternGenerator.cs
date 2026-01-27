@@ -8,6 +8,9 @@ public class PatternGenerator : MonoBehaviour
     public int numberOfBullets;
     public float horizontalAngleStep;
     public float radius = 1f;
+    public float wiggleSpeed = 0;
+    public float horizontalWiggleSize = 0;
+    public float verticalWiggleSize = 0;
     public bool sphereMode = false;
     public int numberOfSphereParts = 1;
     public float bulletSpeed;
@@ -50,6 +53,8 @@ public class PatternGenerator : MonoBehaviour
     {
         startPoint = transform.position;
         float horizontalAngleSpacing = 360f / numberOfBullets;
+        float horizontalWiggleModifier = horizontalWiggleSize * Mathf.Sin(wiggleSpeed * Time.time);
+        float verticalWiggleModifier = verticalWiggleSize * Mathf.Cos(wiggleSpeed * Time.time);
         
         if (sphereMode)
         {
@@ -60,9 +65,9 @@ public class PatternGenerator : MonoBehaviour
                 
                 for (int i = 0; i < numberOfBullets; i++)
                 {
-                    float bulletDirXPosition = startPoint.x + Mathf.Cos(((horizontalAngle + i * horizontalAngleSpacing) * Mathf.PI) / 180f) * Mathf.Cos(verticalAngle) * radius;
-                    float bulletDirYPosition = startPoint.y + Mathf.Sin(verticalAngle) * radius;
-                    float bulletDirZPosition = startPoint.z + Mathf.Sin(((horizontalAngle + i * horizontalAngleSpacing) * Mathf.PI) / 180f) * Mathf.Cos(verticalAngle) * radius;
+                    float bulletDirXPosition = startPoint.x + Mathf.Cos(((horizontalAngle + i * horizontalAngleSpacing + horizontalWiggleModifier) * Mathf.PI) / 180f) * Mathf.Cos(verticalAngle) * radius;
+                    float bulletDirYPosition = startPoint.y + Mathf.Sin(verticalAngle + verticalWiggleModifier) * radius;
+                    float bulletDirZPosition = startPoint.z + Mathf.Sin(((horizontalAngle + i * horizontalAngleSpacing + horizontalWiggleModifier) * Mathf.PI) / 180f) * Mathf.Cos(verticalAngle) * radius;
 
                     Vector3 newPositionVector = new Vector3(bulletDirXPosition, bulletDirYPosition, bulletDirZPosition);
                     Vector3 bulletDirection= (newPositionVector - startPoint).normalized;
@@ -89,9 +94,9 @@ public class PatternGenerator : MonoBehaviour
             // Normal mode
             for (int i = 0; i < numberOfBullets; i++)
             {
-                float bulletDirXPosition = startPoint.x + Mathf.Cos(((horizontalAngle + i * horizontalAngleSpacing) * Mathf.PI) / 180f) * radius;
+                float bulletDirXPosition = startPoint.x + Mathf.Cos(((horizontalAngle + i * horizontalAngleSpacing + horizontalWiggleModifier) * Mathf.PI) / 180f) * radius;
                 float bulletDirYPosition = startPoint.y;
-                float bulletDirZPosition = startPoint.z + Mathf.Sin(((horizontalAngle + i * horizontalAngleSpacing) * Mathf.PI) / 180f) * radius;
+                float bulletDirZPosition = startPoint.z + Mathf.Sin(((horizontalAngle + i * horizontalAngleSpacing + horizontalWiggleModifier) * Mathf.PI) / 180f) * radius;
 
                 Vector3 newPositionVector = new Vector3(bulletDirXPosition, bulletDirYPosition, bulletDirZPosition);
                 Vector3 bulletDirection= (newPositionVector - startPoint).normalized;

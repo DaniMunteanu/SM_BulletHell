@@ -15,6 +15,12 @@ public class MainUI : MonoBehaviour
     [SerializeField] private TMP_Text radiusText;
     [SerializeField] private Slider firingRateSlider;
     [SerializeField] private TMP_Text firingRateText;
+    [SerializeField] private Slider wiggleSpeedSlider;
+    [SerializeField] private TMP_Text wiggleSpeedText;
+    [SerializeField] private Slider horizontalWiggleSizeSlider;
+    [SerializeField] private TMP_Text horizontalWiggleSizeText;
+    [SerializeField] private Slider verticalWiggleSizeSlider;
+    [SerializeField] private TMP_Text verticalWiggleSizeText;
     [SerializeField] private Toggle sphereModeToggle;
     [SerializeField] private Slider numberOfSpherePartsSlider;
     [SerializeField] private TMP_Text numberOfSpherePartsText;
@@ -28,6 +34,9 @@ public class MainUI : MonoBehaviour
         radiusSlider.onValueChanged.AddListener(delegate {OnRadiusValueChanged();});
         numberOfSpherePartsSlider.onValueChanged.AddListener(delegate {OnNumberOfSpherePartsValueChanged();});
         firingRateSlider.onValueChanged.AddListener(delegate {OnFiringRateValueChanged();});
+        wiggleSpeedSlider.onValueChanged.AddListener(delegate {OnWiggleSpeedValueChanged();});
+        horizontalWiggleSizeSlider.onValueChanged.AddListener(delegate {OnHorizontalWiggleValueChanged();});
+        verticalWiggleSizeSlider.onValueChanged.AddListener(delegate {OnVerticalWiggleValueChanged();});
         sphereModeToggle.onValueChanged.AddListener(delegate {OnSphereModeValueChanged();});
     }
 
@@ -65,6 +74,21 @@ public class MainUI : MonoBehaviour
         patternGenerator.firingRate = firingRateSlider.value;
         firingRateText.text = "Firing rate (seconds): " + firingRateSlider.value;
         patternGenerator.OnFiringSpeedValueChanged();
+    }
+    private void OnWiggleSpeedValueChanged()
+    {
+        patternGenerator.wiggleSpeed = wiggleSpeedSlider.value;
+        wiggleSpeedText.text = "Wiggle speed: " + wiggleSpeedSlider.value;
+    }
+    private void OnHorizontalWiggleValueChanged()
+    {
+        patternGenerator.horizontalWiggleSize = horizontalWiggleSizeSlider.value;
+        horizontalWiggleSizeText.text = "Horizontal wiggle size: " + horizontalWiggleSizeSlider.value;
+    }
+    private void OnVerticalWiggleValueChanged()
+    {
+        patternGenerator.verticalWiggleSize = verticalWiggleSizeSlider.value;
+        verticalWiggleSizeText.text = "Vertical wiggle size: " + verticalWiggleSizeSlider.value;
     }
 
     private void OnSphereModeValueChanged()
