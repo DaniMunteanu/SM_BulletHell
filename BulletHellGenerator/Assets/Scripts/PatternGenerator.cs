@@ -54,13 +54,15 @@ public class PatternGenerator : MonoBehaviour
         startPoint = transform.position;
         float horizontalAngleSpacing = 360f / numberOfBullets;
         float horizontalWiggleModifier = horizontalWiggleSize * Mathf.Sin(wiggleSpeed * Time.time);
-        float verticalWiggleModifier = verticalWiggleSize * Mathf.Cos(wiggleSpeed * Time.time);
+        
         
         if (sphereMode)
         {
             // Sphere mode
             for (verticalLayerIndex = 0; verticalLayerIndex <= numberOfSphereParts; verticalLayerIndex++)
             {
+                float verticalWiggleModifier = verticalWiggleSize * Mathf.Cos(wiggleSpeed * Time.time);
+
                 verticalAngle = Mathf.Asin(1 - ((2 * verticalLayerIndex)/numberOfSphereParts));
                 
                 for (int i = 0; i < numberOfBullets; i++)
@@ -83,6 +85,13 @@ public class PatternGenerator : MonoBehaviour
                 
                     newBullet.SetMoveSpeed(bulletSpeed);
                     newBullet.SetMoveDirection(bulletDirection);
+
+                    newBullet.horizontalAngle = horizontalAngle;
+                    newBullet.horizontalAngleSpacing = i * horizontalAngleSpacing;
+                    newBullet.verticalAngle = verticalAngle;
+                    newBullet.wiggleSpeed = wiggleSpeed;
+                    newBullet.horizontalWiggleSize = horizontalWiggleSize;
+                    newBullet.verticalWiggleSize = verticalWiggleSize;
 
                     if (horizontalAngle >= 360f)
                         horizontalAngle -= 360f;
@@ -112,6 +121,13 @@ public class PatternGenerator : MonoBehaviour
             
                 newBullet.SetMoveSpeed(bulletSpeed);
                 newBullet.SetMoveDirection(bulletDirection);
+
+                newBullet.horizontalAngle = horizontalAngle;
+                newBullet.horizontalAngleSpacing = i * horizontalAngleSpacing;
+                newBullet.verticalAngle = verticalAngle;
+                newBullet.wiggleSpeed = wiggleSpeed;
+                newBullet.horizontalWiggleSize = horizontalWiggleSize;
+                newBullet.verticalWiggleSize = verticalWiggleSize;
             
                 if (horizontalAngle >= 360f)
                     horizontalAngle -= 360f;
