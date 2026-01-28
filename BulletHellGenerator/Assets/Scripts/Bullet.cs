@@ -4,7 +4,8 @@ public class Bullet : MonoBehaviour
 {
     private Vector3 moveDirection;
     public Vector3 startPosition;
-    private float moveSpeed = 5f;
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float acceleration = 0;
     public float radius = 2f;
 
     public float horizontalAngle = 0;
@@ -36,6 +37,8 @@ public class Bullet : MonoBehaviour
         transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
         if (Vector3.Distance(startPosition, transform.position) >= radius)
             Destroy(gameObject);
+
+        moveSpeed += acceleration;
     }
 
     public void SetMoveDirection(Vector3 dir)
@@ -46,5 +49,11 @@ public class Bullet : MonoBehaviour
     public void SetMoveSpeed(float speed)
     {
         moveSpeed = speed;
+    }
+
+    public void SetAcceleration(float acc)
+    {
+        acceleration = acc;
+        Debug.LogFormat("Set acceleration to {0}", acceleration);
     }
 }

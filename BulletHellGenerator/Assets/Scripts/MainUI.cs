@@ -15,6 +15,10 @@ public class MainUI : MonoBehaviour
     [SerializeField] private TMP_Text radiusText;
     [SerializeField] private Slider firingRateSlider;
     [SerializeField] private TMP_Text firingRateText;
+    [SerializeField] private Slider bulletSpeedSlider;
+    [SerializeField] private TMP_Text bulletSpeedText;
+    [SerializeField] private Slider bulletAccelerationSlider;
+    [SerializeField] private TMP_Text bulletAccelerationText;
     [SerializeField] private Slider wiggleSpeedSlider;
     [SerializeField] private TMP_Text wiggleSpeedText;
     [SerializeField] private Slider horizontalWiggleSizeSlider;
@@ -34,6 +38,8 @@ public class MainUI : MonoBehaviour
         radiusSlider.onValueChanged.AddListener(delegate {OnRadiusValueChanged();});
         numberOfSpherePartsSlider.onValueChanged.AddListener(delegate {OnNumberOfSpherePartsValueChanged();});
         firingRateSlider.onValueChanged.AddListener(delegate {OnFiringRateValueChanged();});
+        bulletSpeedSlider.onValueChanged.AddListener(delegate {OnBulletSpeedValueChanged();});
+        bulletAccelerationSlider.onValueChanged.AddListener(delegate {OnBulletAccelerationValueChanged();});
         wiggleSpeedSlider.onValueChanged.AddListener(delegate {OnWiggleSpeedValueChanged();});
         horizontalWiggleSizeSlider.onValueChanged.AddListener(delegate {OnHorizontalWiggleValueChanged();});
         verticalWiggleSizeSlider.onValueChanged.AddListener(delegate {OnVerticalWiggleValueChanged();});
@@ -75,6 +81,19 @@ public class MainUI : MonoBehaviour
         firingRateText.text = "Firing rate (seconds): " + firingRateSlider.value;
         patternGenerator.OnFiringSpeedValueChanged();
     }
+
+    private void OnBulletSpeedValueChanged()
+    {
+        patternGenerator.bulletSpeed = bulletSpeedSlider.value;
+        bulletSpeedText.text = "Bullet speed: " + bulletSpeedSlider.value;
+    }
+
+    private void OnBulletAccelerationValueChanged()
+    {
+        patternGenerator.acceleration = bulletAccelerationSlider.value;
+        bulletAccelerationText.text = "Bullet acceleration: " + bulletAccelerationSlider.value;
+    }
+
     private void OnWiggleSpeedValueChanged()
     {
         patternGenerator.wiggleSpeed = wiggleSpeedSlider.value;

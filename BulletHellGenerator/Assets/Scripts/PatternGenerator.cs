@@ -14,6 +14,8 @@ public class PatternGenerator : MonoBehaviour
     public bool sphereMode = false;
     public int numberOfSphereParts = 1;
     public float bulletSpeed;
+    public float acceleration = 0;
+    // public float verticalAngleStep;
     public float firingRate;
     public bool shooting;
     public GameObject BulletPrefab;
@@ -21,6 +23,7 @@ public class PatternGenerator : MonoBehaviour
     [Header("Private Bullets Settings")]
     private Vector3 startPoint;
     private float horizontalAngle = 0f;
+    // private
     private float verticalAngle = 0f;
     private float verticalLayerIndex = 0;
 
@@ -84,6 +87,7 @@ public class PatternGenerator : MonoBehaviour
                     newBullet.transform.rotation = transform.rotation * Quaternion.identity;
                 
                     newBullet.SetMoveSpeed(bulletSpeed);
+                    newBullet.SetAcceleration(acceleration);
                     newBullet.SetMoveDirection(bulletDirection);
 
                     newBullet.horizontalAngle = horizontalAngle;
@@ -120,6 +124,7 @@ public class PatternGenerator : MonoBehaviour
                 newBullet.transform.rotation = transform.rotation * Quaternion.identity;
             
                 newBullet.SetMoveSpeed(bulletSpeed);
+                newBullet.SetAcceleration(acceleration);
                 newBullet.SetMoveDirection(bulletDirection);
 
                 newBullet.horizontalAngle = horizontalAngle;
