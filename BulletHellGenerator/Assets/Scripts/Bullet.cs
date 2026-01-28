@@ -54,6 +54,6 @@ public class Bullet : MonoBehaviour
     public void SetAcceleration(float acc)
     {
         acceleration = acc;
-        Debug.LogFormat("Set acceleration to {0}", acceleration);
+        // Debug.LogFormat("Set acceleration to {0}", acceleration);
     }
 }

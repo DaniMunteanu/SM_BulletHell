@@ -15,7 +15,8 @@ public class PatternGenerator : MonoBehaviour
     public int numberOfSphereParts = 1;
     public float bulletSpeed;
     public float acceleration = 0;
-    // public float verticalAngleStep;
+    public float verticalAngleStep;
+    public float phi;
     public float firingRate;
     public bool shooting;
     public GameObject BulletPrefab;
@@ -26,6 +27,7 @@ public class PatternGenerator : MonoBehaviour
     // private
     private float verticalAngle = 0f;
     private float verticalLayerIndex = 0;
+    private int currentShot = 0; // K
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -66,7 +68,7 @@ public class PatternGenerator : MonoBehaviour
             {
                 float verticalWiggleModifier = verticalWiggleSize * Mathf.Cos(wiggleSpeed * Time.time);
 
-                verticalAngle = Mathf.Asin(1 - ((2 * verticalLayerIndex)/numberOfSphereParts));
+                verticalAngle = Mathf.Asin(1 - ((2 * verticalLayerIndex)/numberOfSphereParts)) + verticalAngleStep * Mathf.PI / 180f * Mathf.Sin(phi * currentShot);
                 
                 for (int i = 0; i < numberOfBullets; i++)
                 {
@@ -140,6 +142,8 @@ public class PatternGenerator : MonoBehaviour
         }
 
         horizontalAngle += horizontalAngleStep;
+        currentShot += 1;
+        // Debug.LogFormat("Current shot: {0}", currentShot);
     }
 
     public void OnFiringSpeedValueChanged() {

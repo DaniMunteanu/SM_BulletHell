@@ -126,6 +126,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 207199427f51556448098149b2e0210f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PatternGenerator
-  numberOfBullets: 3
+  numberOfBullets: 1
+  horizontalAngleStep: 0
+  radius: 10
+  wiggleSpeed: 0
+  horizontalWiggleSize: 0
+  verticalWiggleSize: 0
+  sphereMode: 0
+  numberOfSphereParts: 1
   bulletSpeed: 10
+  acceleration: 0
+  verticalAngleStep: 0
+  phi: 0
+  firingRate: 1
+  shooting: 0
   BulletPrefab: {fileID: 2856181989497470436, guid: 5942279176f86cc468dea8052e87eb7b, type: 3}

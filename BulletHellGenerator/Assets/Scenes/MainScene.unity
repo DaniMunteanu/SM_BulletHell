@@ -574,14 +574,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2107912241397833065, guid: 111f31fcec5519946a9e5bb1b02144ec, type: 3}
-      propertyPath: firingSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2107912241397833065, guid: 111f31fcec5519946a9e5bb1b02144ec, type: 3}
-      propertyPath: numberOfBullets
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -635,11 +627,23 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 497110676469348426, guid: 18dd966a68b5ef44b99548ce77a05e18, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 906043973752897968, guid: 18dd966a68b5ef44b99548ce77a05e18, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1881866983665937118, guid: 18dd966a68b5ef44b99548ce77a05e18, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2195964968530290870, guid: 18dd966a68b5ef44b99548ce77a05e18, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2296740087793968628, guid: 18dd966a68b5ef44b99548ce77a05e18, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
@@ -657,6 +661,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3248184067613774514, guid: 18dd966a68b5ef44b99548ce77a05e18, type: 3}
       propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472283862543864986, guid: 18dd966a68b5ef44b99548ce77a05e18, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4042694355991411861, guid: 18dd966a68b5ef44b99548ce77a05e18, type: 3}

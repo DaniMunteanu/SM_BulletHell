@@ -28,6 +28,10 @@ public class MainUI : MonoBehaviour
     [SerializeField] private Toggle sphereModeToggle;
     [SerializeField] private Slider numberOfSpherePartsSlider;
     [SerializeField] private TMP_Text numberOfSpherePartsText;
+    [SerializeField] private Slider verticalAngleStepSlider;
+    [SerializeField] private TMP_Text verticalAngleStepText;
+    [SerializeField] private Slider oscillatingPhiSlider;
+    [SerializeField] private TMP_Text oscillatingPhiText;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -37,6 +41,8 @@ public class MainUI : MonoBehaviour
         horizontalAngleStepSlider.onValueChanged.AddListener(delegate {OnHorizontalAngleStepValueChanged();});
         radiusSlider.onValueChanged.AddListener(delegate {OnRadiusValueChanged();});
         numberOfSpherePartsSlider.onValueChanged.AddListener(delegate {OnNumberOfSpherePartsValueChanged();});
+        verticalAngleStepSlider.onValueChanged.AddListener(delegate {OnVerticalAngleStepValueChanged();});
+        oscillatingPhiSlider.onValueChanged.AddListener(delegate {OnOscillatingPhiValueChanged();});
         firingRateSlider.onValueChanged.AddListener(delegate {OnFiringRateValueChanged();});
         bulletSpeedSlider.onValueChanged.AddListener(delegate {OnBulletSpeedValueChanged();});
         bulletAccelerationSlider.onValueChanged.AddListener(delegate {OnBulletAccelerationValueChanged();});
@@ -119,5 +125,17 @@ public class MainUI : MonoBehaviour
     {
         patternGenerator.numberOfSphereParts = (int)numberOfSpherePartsSlider.value;
         numberOfSpherePartsText.text = "Number of sphere parts: " + (int)numberOfSpherePartsSlider.value;
+    }
+
+    private void OnVerticalAngleStepValueChanged()
+    {
+        patternGenerator.verticalAngleStep = verticalAngleStepSlider.value;
+        verticalAngleStepText.text = "Vertical angle step (degrees): " + verticalAngleStepSlider.value;
+    }
+
+    private void OnOscillatingPhiValueChanged()
+    {
+        patternGenerator.phi = oscillatingPhiSlider.value;
+        oscillatingPhiText.text = "Oscillating phi (radians): " + oscillatingPhiSlider.value;
     }
 }
