@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2346821342685284109}
   - component: {fileID: 4695847672470109447}
   - component: {fileID: 4106666053540925625}
+  - component: {fileID: 2278191997212996373}
   - component: {fileID: 2107912241397833065}
   m_Layer: 0
   m_Name: BulletGenerator
@@ -114,6 +115,20 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2278191997212996373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969386127614872118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f981e3e16ee2f1c43b5328f9cff79b64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectPool
+  objectToPool: {fileID: 2856181989497470436, guid: 5942279176f86cc468dea8052e87eb7b, type: 3}
+  amountToPool: 50
 --- !u!114 &2107912241397833065
 MonoBehaviour:
   m_ObjectHideFlags: 0

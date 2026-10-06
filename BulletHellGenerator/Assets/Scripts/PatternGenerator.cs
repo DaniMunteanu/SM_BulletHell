@@ -79,7 +79,16 @@ public class PatternGenerator : MonoBehaviour
                     Vector3 newPositionVector = new Vector3(bulletDirXPosition, bulletDirYPosition, bulletDirZPosition);
                     Vector3 bulletDirection= (newPositionVector - startPoint).normalized;
 
-                    Bullet newBullet = Instantiate(BulletPrefab).GetComponent<Bullet>();
+                    //Bullet newBullet = Instantiate(BulletPrefab).GetComponent<Bullet>();
+                    Bullet newBullet = ObjectPool.SharedInstance.GetPooledObject()?.GetComponent<Bullet>();
+                    if (newBullet == null)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        newBullet.gameObject.SetActive(true);
+                    }
                     newBullet.transform.position = startPoint;
                     newBullet.startPosition = startPoint;
                     newBullet.radius = radius;
@@ -116,7 +125,16 @@ public class PatternGenerator : MonoBehaviour
                 Vector3 newPositionVector = new Vector3(bulletDirXPosition, bulletDirYPosition, bulletDirZPosition);
                 Vector3 bulletDirection= (newPositionVector - startPoint).normalized;
 
-                Bullet newBullet = Instantiate(BulletPrefab).GetComponent<Bullet>();
+                //Bullet newBullet = Instantiate(BulletPrefab).GetComponent<Bullet>();
+                Bullet newBullet = ObjectPool.SharedInstance.GetPooledObject()?.GetComponent<Bullet>();
+                if (newBullet == null)
+                {
+                    return;
+                }
+                else
+                {
+                    newBullet.gameObject.SetActive(true);
+                }
                 newBullet.transform.position = startPoint;
                 newBullet.startPosition = startPoint;
                 newBullet.radius = radius;

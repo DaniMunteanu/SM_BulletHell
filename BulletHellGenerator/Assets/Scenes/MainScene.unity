@@ -574,6 +574,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2278191997212996373, guid: 111f31fcec5519946a9e5bb1b02144ec, type: 3}
+      propertyPath: amountToPool
+      value: 200
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -632,7 +636,15 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 906043973752897968, guid: 18dd966a68b5ef44b99548ce77a05e18, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 906043973752897968, guid: 18dd966a68b5ef44b99548ce77a05e18, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 906043973752897968, guid: 18dd966a68b5ef44b99548ce77a05e18, type: 3}
+      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1881866983665937118, guid: 18dd966a68b5ef44b99548ce77a05e18, type: 3}
@@ -774,6 +786,10 @@ PrefabInstance:
     - target: {fileID: 5178606655027690537, guid: 18dd966a68b5ef44b99548ce77a05e18, type: 3}
       propertyPath: m_Name
       value: MainUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164856847650769872, guid: 18dd966a68b5ef44b99548ce77a05e18, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6164856847650769872, guid: 18dd966a68b5ef44b99548ce77a05e18, type: 3}
       propertyPath: m_AnchorMax.y

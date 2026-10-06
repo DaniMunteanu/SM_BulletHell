@@ -36,7 +36,10 @@ public class Bullet : MonoBehaviour
 
         transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
         if (Vector3.Distance(startPosition, transform.position) >= radius)
-            Destroy(gameObject);
+        {
+            //Destroy(gameObject);
+            gameObject.SetActive(false);
+        }
 
         moveSpeed += acceleration;
     }
