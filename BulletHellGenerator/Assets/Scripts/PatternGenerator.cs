@@ -29,16 +29,46 @@ public class PatternGenerator : MonoBehaviour
     private float verticalLayerIndex = 0;
     private int currentShot = 0; // K
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void SpawnBullet(int indexInRing, float horizontalAngleSpacing, float horizontalWiggleModifier, float verticalWiggleModifier)
     {
-        
-    }
+        float bulletDirXPosition = startPoint.x + Mathf.Cos(((horizontalAngle + indexInRing * horizontalAngleSpacing + horizontalWiggleModifier) * Mathf.PI) / 180f) * Mathf.Cos(verticalAngle) * radius;
+        float bulletDirYPosition = startPoint.y + Mathf.Sin(verticalAngle + verticalWiggleModifier) * radius;
+        float bulletDirZPosition = startPoint.z + Mathf.Sin(((horizontalAngle + indexInRing * horizontalAngleSpacing + horizontalWiggleModifier) * Mathf.PI) / 180f) * Mathf.Cos(verticalAngle) * radius;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Vector3 newPositionVector = new Vector3(bulletDirXPosition, bulletDirYPosition, bulletDirZPosition);
+        Vector3 bulletDirection= (newPositionVector - startPoint).normalized;
+
+        //Bullet newBullet = Instantiate(BulletPrefab).GetComponent<Bullet>();
+        Bullet newBullet = ObjectPool.SharedInstance.GetPooledObject()?.GetComponent<Bullet>();
+        if (newBullet == null)
+        {
+            return;
+        }
+        else
+        {
+            newBullet.gameObject.SetActive(true);
+        }
+        newBullet.transform.position = startPoint;
+        newBullet.startPosition = startPoint;
+        newBullet.radius = radius;
+
+        // pentru alte traiectorii
+        // newBullet.transform.rotation = transform.rotation * new Quaternion(x,y,z,w); 
+        newBullet.transform.rotation = transform.rotation * Quaternion.identity;
+    
+        newBullet.SetMoveSpeed(bulletSpeed);
+        newBullet.SetAcceleration(acceleration);
+        newBullet.SetMoveDirection(bulletDirection);
+
+        newBullet.horizontalAngle = horizontalAngle;
+        newBullet.horizontalAngleSpacing = indexInRing * horizontalAngleSpacing;
+        newBullet.verticalAngle = verticalAngle;
+        newBullet.wiggleSpeed = wiggleSpeed;
+        newBullet.horizontalWiggleSize = horizontalWiggleSize;
+        newBullet.verticalWiggleSize = verticalWiggleSize;
+
+        if (horizontalAngle >= 360f)
+            horizontalAngle -= 360f;
     }
 
     public void Fire()
@@ -46,116 +76,43 @@ public class PatternGenerator : MonoBehaviour
         shooting = !shooting;
         if (shooting)
         {
-            InvokeRepeating("SpawnBullets", 0f, firingRate);
+            InvokeRepeating("FireBullets", 0f, firingRate);
         }
         else
         {
-            CancelInvoke("SpawnBullets");
+            CancelInvoke("FireBullets");
         }
     }
     
-    public void SpawnBullets()
+    public void FireBullets()
     {
         startPoint = transform.position;
         float horizontalAngleSpacing = 360f / numberOfBullets;
         float horizontalWiggleModifier = horizontalWiggleSize * Mathf.Sin(wiggleSpeed * Time.time);
-        
+        float verticalWiggleModifier = verticalWiggleSize * Mathf.Cos(wiggleSpeed * Time.time);
         
         if (sphereMode)
         {
             // Sphere mode
             for (verticalLayerIndex = 0; verticalLayerIndex <= numberOfSphereParts; verticalLayerIndex++)
             {
-                float verticalWiggleModifier = verticalWiggleSize * Mathf.Cos(wiggleSpeed * Time.time);
-
                 verticalAngle = Mathf.Asin(1 - ((2 * verticalLayerIndex)/numberOfSphereParts)) + verticalAngleStep * Mathf.PI / 180f * Mathf.Sin(phi * currentShot);
                 
                 for (int i = 0; i < numberOfBullets; i++)
                 {
-                    float bulletDirXPosition = startPoint.x + Mathf.Cos(((horizontalAngle + i * horizontalAngleSpacing + horizontalWiggleModifier) * Mathf.PI) / 180f) * Mathf.Cos(verticalAngle) * radius;
-                    float bulletDirYPosition = startPoint.y + Mathf.Sin(verticalAngle + verticalWiggleModifier) * radius;
-                    float bulletDirZPosition = startPoint.z + Mathf.Sin(((horizontalAngle + i * horizontalAngleSpacing + horizontalWiggleModifier) * Mathf.PI) / 180f) * Mathf.Cos(verticalAngle) * radius;
-
-                    Vector3 newPositionVector = new Vector3(bulletDirXPosition, bulletDirYPosition, bulletDirZPosition);
-                    Vector3 bulletDirection= (newPositionVector - startPoint).normalized;
-
-                    //Bullet newBullet = Instantiate(BulletPrefab).GetComponent<Bullet>();
-                    Bullet newBullet = ObjectPool.SharedInstance.GetPooledObject()?.GetComponent<Bullet>();
-                    if (newBullet == null)
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        newBullet.gameObject.SetActive(true);
-                    }
-                    newBullet.transform.position = startPoint;
-                    newBullet.startPosition = startPoint;
-                    newBullet.radius = radius;
-
-                    // pentru alte traiectorii
-                    // newBullet.transform.rotation = transform.rotation * new Quaternion(x,y,z,w); 
-                    newBullet.transform.rotation = transform.rotation * Quaternion.identity;
-                
-                    newBullet.SetMoveSpeed(bulletSpeed);
-                    newBullet.SetAcceleration(acceleration);
-                    newBullet.SetMoveDirection(bulletDirection);
-
-                    newBullet.horizontalAngle = horizontalAngle;
-                    newBullet.horizontalAngleSpacing = i * horizontalAngleSpacing;
-                    newBullet.verticalAngle = verticalAngle;
-                    newBullet.wiggleSpeed = wiggleSpeed;
-                    newBullet.horizontalWiggleSize = horizontalWiggleSize;
-                    newBullet.verticalWiggleSize = verticalWiggleSize;
-
-                    if (horizontalAngle >= 360f)
-                        horizontalAngle -= 360f;
+                    SpawnBullet(i, horizontalAngleSpacing, horizontalWiggleModifier, verticalWiggleModifier);
                 }
             }
         }
         else
         {
+            verticalAngle = 0;
+            verticalWiggleSize = 0;
+
             // Normal mode
             for (int i = 0; i < numberOfBullets; i++)
             {
-                float bulletDirXPosition = startPoint.x + Mathf.Cos(((horizontalAngle + i * horizontalAngleSpacing + horizontalWiggleModifier) * Mathf.PI) / 180f) * radius;
-                float bulletDirYPosition = startPoint.y;
-                float bulletDirZPosition = startPoint.z + Mathf.Sin(((horizontalAngle + i * horizontalAngleSpacing + horizontalWiggleModifier) * Mathf.PI) / 180f) * radius;
-
-                Vector3 newPositionVector = new Vector3(bulletDirXPosition, bulletDirYPosition, bulletDirZPosition);
-                Vector3 bulletDirection= (newPositionVector - startPoint).normalized;
-
-                //Bullet newBullet = Instantiate(BulletPrefab).GetComponent<Bullet>();
-                Bullet newBullet = ObjectPool.SharedInstance.GetPooledObject()?.GetComponent<Bullet>();
-                if (newBullet == null)
-                {
-                    return;
-                }
-                else
-                {
-                    newBullet.gameObject.SetActive(true);
-                }
-                newBullet.transform.position = startPoint;
-                newBullet.startPosition = startPoint;
-                newBullet.radius = radius;
-
-                // pentru alte traiectorii
-                // newBullet.transform.rotation = transform.rotation * new Quaternion(x,y,z,w); 
-                newBullet.transform.rotation = transform.rotation * Quaternion.identity;
-            
-                newBullet.SetMoveSpeed(bulletSpeed);
-                newBullet.SetAcceleration(acceleration);
-                newBullet.SetMoveDirection(bulletDirection);
-
-                newBullet.horizontalAngle = horizontalAngle;
-                newBullet.horizontalAngleSpacing = i * horizontalAngleSpacing;
-                newBullet.verticalAngle = verticalAngle;
-                newBullet.wiggleSpeed = wiggleSpeed;
-                newBullet.horizontalWiggleSize = horizontalWiggleSize;
-                newBullet.verticalWiggleSize = verticalWiggleSize;
-            
-                if (horizontalAngle >= 360f)
-                    horizontalAngle -= 360f;
+                SpawnBullet(i, horizontalAngleSpacing, horizontalWiggleModifier, verticalWiggleModifier);
             }
         }
 
@@ -164,11 +121,12 @@ public class PatternGenerator : MonoBehaviour
         // Debug.LogFormat("Current shot: {0}", currentShot);
     }
 
+
     public void OnFiringSpeedValueChanged() {
         if (shooting)
         {
-            CancelInvoke("SpawnBullets");
-            InvokeRepeating("SpawnBullets", 0.05f, firingRate);
+            CancelInvoke("FireBullets");
+            InvokeRepeating("FireBullets", 0.05f, firingRate);
         }
     }
 }
